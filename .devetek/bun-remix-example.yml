@@ -1,0 +1,32 @@
+# Cloud Devetek Standard Definition v0.0.1-alpha.0 Go Example
+version: v0.0.1-alpha.0
+
+setup:
+  language:
+    name: bun
+    version: bun-v1.2.1
+
+# https://bun.sh/guides/ecosystem/remix
+build:
+  target:
+    machine:
+      workdir: .
+      steps:
+        - name: "Build Remix with Bun"
+          command:
+            - bun install
+            - bun run build
+        - name: "create application artifact"
+          archive:
+            - build
+            - node_modules
+            - public
+
+run:
+  name: bun-remix-example
+  description: Bun x Remix Example VPS Deployment
+  command: node .next/standalone/server.js
+  port: 3000
+  environment:
+    - key: PORT
+      value: 3000

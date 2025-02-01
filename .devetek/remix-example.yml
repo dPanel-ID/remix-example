@@ -3,8 +3,8 @@ version: v0.0.1-alpha.0
 
 setup:
   language:
-    name: bun
-    version: 1.2.1
+    name: nodejs
+    version: v20.11.0
 
 # https://bun.sh/guides/ecosystem/remix
 build:
@@ -14,8 +14,8 @@ build:
       steps:
         - name: "Build Remix with Bun"
           command:
-            - bun install
-            - bun run build
+            - pnpm i
+            - pnpm run build
         - name: "create application artifact"
           archive:
             - build
@@ -23,9 +23,9 @@ build:
             - public
 
 run:
-  name: bun-remix-example
-  description: Bun x Remix Example VPS Deployment
-  command: node .next/standalone/server.js
+  name: remix-example
+  description: Remix Example VPS Deployment
+  command: ./node_modules/.bin/remix-serve ./build/server/index.js
   port: 3000
   environment:
     - key: PORT
